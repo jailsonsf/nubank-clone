@@ -9,6 +9,7 @@ export default function Main() {
   return (
     <Container>
       <Header />
+      <Tabs />
     </Container>
   );
 }

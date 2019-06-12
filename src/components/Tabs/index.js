@@ -1,9 +1,19 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Container from './styles';
+import { 
+    Container, TabsContainer, TabItem, TabText 
+} from './styles';
 
 export default function Tabs() {
     return (
-        <Container />
+        <Container>
+            <TabsContainer>
+                <TabItem>
+                    <Icon name="person-add" size={24} color="#fff" />
+                    <TabText>Indicar Amigos</TabText>
+                </TabItem>
+            </TabsContainer>
+        </Container>
     );
 }
