@@ -14,6 +14,8 @@ import {
 } from './styles';
 
 export default function Main() {
+  let offset = 0;
+
   const translateY = new Animated.Value(0);
 
   const AnimatedEvent = Animated.event(
@@ -28,7 +30,30 @@ export default function Main() {
   );
 
   function onHandlerStateChange(event) {
+    if(event.nativeEvent.oldState === State.ACTIVE) {
+      let opened = false;
+      const { tranlationY } = event.nativeEvent;
 
+      offset += tranlationY;
+
+      if(tranlationY >= 100) {
+        opened = true;
+      } else {
+        translateY.setValue(0);
+        tranlateY.setOffset(offset);
+        offset = 0;
+      }
+      
+      Animated.timing(translateY, {
+        toValue: opened ? 380 : 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start(() => {
+        offset = opened ? 380 : 0;
+        translateY.setOffset(offset);
+        translateY.setValue(0);
+      });
+    }
   }
 
   return (
