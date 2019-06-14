@@ -63,7 +63,7 @@ export default function Main() {
         <Menu translateY={translateY}/>
 
         <PanGestureHandler
-          // onGestureEvent={animatedEvent}
+          onGestureEvent={animatedEvent}
           onHandlerStateChange={onHandlerStateChanged}
         >
           <Card style={{
