@@ -15,32 +15,31 @@ import {
 
 export default function Main() {
   let offset = 0;
-
   const translateY = new Animated.Value(0);
 
-  const AnimatedEvent = Animated.event(
+  const animatedEvent = Animated.event(
     [
       {
-        nativeEnvent: {
-          translateY: translateY,
-        }
-      }
+        nativeEvent: {
+          translationY: translateY,
+        },
+      },
     ],
     { useNativeDriver: true },
   );
 
-  function onHandlerStateChange(event) {
+  function onHandlerStateChanged(event) {
     if(event.nativeEvent.oldState === State.ACTIVE) {
       let opened = false;
-      const { tranlationY } = event.nativeEvent;
+      const { translationY } = event.nativeEvent;
 
-      offset += tranlationY;
+      offset += translationY;
 
-      if(tranlationY >= 100) {
+      if(translationY >= 100) {
         opened = true;
       } else {
-        translateY.setValue(0);
-        tranlateY.setOffset(offset);
+        translateY.setValue(offset);
+        translateY.setOffset(0);
         offset = 0;
       }
       
@@ -61,11 +60,11 @@ export default function Main() {
       <Header />
       
       <Content>
-        <Menu translateY={ translateY }/>
+        <Menu translateY={translateY}/>
 
         <PanGestureHandler
-          onGestureEvent={}
-          onHandlerStateChange={onHandlerStateChange}
+          // onGestureEvent={animatedEvent}
+          onHandlerStateChange={onHandlerStateChanged}
         >
           <Card style={{
             transform: [{
@@ -74,19 +73,20 @@ export default function Main() {
                 outputRange: [-50, 0, 380],
                 extrapolate: 'clamp',
               }),
-            }]
-          }}>
+            }],
+          }}
+          >
             <CardHeader>
               <Icon name="attach-money" size={28} color="#666"/>
               <Icon name="visibility-off" size={28} color="#666"/>            
             </CardHeader>
             <CardContent>
               <Title>Saldo disponível</Title>
-              <Description>R$ 1.043.000,00</Description>
+              <Description>R$ 999.020,00</Description>
             </CardContent>
             <CardFooter>
               <Annotation>
-                Transferência de R$ 1.000,00  recebida.
+                Transferência de R$ 20,00  recebida.
               </Annotation>
             </CardFooter>
           </Card>
@@ -94,7 +94,7 @@ export default function Main() {
 
       </Content>
 
-      <Tabs tranlateY={ translateY } />
+      <Tabs translateY={translateY} />
     </Container>
   );
 }
